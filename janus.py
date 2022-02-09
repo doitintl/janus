@@ -30,9 +30,9 @@ if __name__ == '__main__':
         exit(0)
 
     # Get variables from the metadata server
-    instance_name = get_metadata('instance', 'name')
+    instance_name = get_metadata('instance', 'hostname')
     project_id = get_metadata('project', 'project-id')
-    project_and_instance_name = '{}.{}'.format(project_id, instance_name)
+    project_and_instance_name = '{}.{}'.format(project_id, instance_name)[:64]
     token = get_metadata('instance', 'service-accounts/default/identity?format=standard&audience=gcp')
 
     # Assume role using gcp service account token
