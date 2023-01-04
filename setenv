@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+role_arn=$1
+jsonkey=$(/usr/local/bin/janus "${role_arn} local")
+AWSACCESSKEYID=$(echo "${jsonkey}" | jq -r '.AccessKeyId')
+AWSSECRETACCESSKEY=$(echo "${jsonkey}" | jq -r '.SecretAccessKey')
+AWSSESSIONTOKEN=$(echo "${jsonkey}" | jq -r '.SessionToken')
+AWS_EXPIRATION=$(echo "${jsonkey}" | jq -r '.Expiration')
+
+export AWSACCESSKEYID
+export AWSSECRETACCESSKEY
+export AWSSESSIONTOKEN
+export AWS_EXPIRATION

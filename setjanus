@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+role_arn=$1
+process="/usr/local/bin/janus ${role_arn} local"
+
+cd ~ || exit
+mkdir .aws
+# create credentials file and set it to janus process
+touch ./aws/credentials
+{
+    echo "[default]"
+    echo "credential_process = ${process}"
+} >.aws/credentials

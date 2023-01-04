@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+role_arn=$1
+creds_file=$2
+jsonkey=$(/usr/local/bin/janus "${role_arn}" local)
+
+AWS_ACCESS_KEY_ID=$(echo "${jsonkey}" | jq -r '.AccessKeyId')
+AWS_SECRET_ACCESS_KEY=$(echo "${jsonkey}" | jq -r '.SecretAccessKey')
+AWS_SESSION_TOKEN=$(echo "${jsonkey}" | jq -r '.SessionToken')
+AWS_EXPIRATION=$(echo "${jsonkey}" | jq -r '.Expiration')
+
+{
+    echo "[default]"
+    echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}"
+    echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}"
+    echo "aws_session_token = ${AWS_SESSION_TOKEN}"
+    echo "aws_expiration = ${AWS_EXPIRATION}"
+} >"$creds_file"
