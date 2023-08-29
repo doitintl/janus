@@ -3,6 +3,7 @@ import requests
 import boto3
 import json
 import sys
+import os
 
 
 def get_metadata(path: str, parameter: str):
@@ -23,10 +24,19 @@ def get_metadata(path: str, parameter: str):
 
 if __name__ == '__main__':
     # Get aws arn from command line argument
-    try:
+    print(len(sys.argv))
+
+    # Get AWS ARN from command line if specified
+    if len(sys.argv) == 2:
         aws_role_arn = sys.argv[1]
-    except IndexError:
-        print('Please specify AWS arn role:\n{} arn:aws:iam::account-id:role/role-name'.format(sys.argv[0]))
+
+    # Get AWS ARN from env var if specified
+    elif 'AWS_JANUS_ROLE' in os.environ:
+        aws_role_arn = os.environ['AWS_JANUS_ROLE']
+
+    # Fail if both argv and env var configuration failed
+    else:
+        print('Please specify AWS arn role:\neither via env var `AWS_JANUS_ROLE` or \n CLI argument `{} arn:aws:iam::account-id:role/role-name`'.format(sys.argv[0]))
         exit(0)
 
     # Get variables from the metadata server
