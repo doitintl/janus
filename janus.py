@@ -23,9 +23,6 @@ def get_metadata(path: str, parameter: str):
 
 
 if __name__ == '__main__':
-    # Get aws arn from command line argument
-    print(len(sys.argv))
-
     # Get AWS ARN from command line if specified
     if len(sys.argv) == 2:
         aws_role_arn = sys.argv[1]
