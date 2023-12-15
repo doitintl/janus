@@ -34,7 +34,7 @@ if __name__ == '__main__':
     # Fail if both argv and env var configuration failed
     else:
         print('Please specify AWS arn role:\neither via env var `AWS_JANUS_ROLE` or \n CLI argument `{} arn:aws:iam::account-id:role/role-name`'.format(sys.argv[0]))
-        exit(0)
+        exit(1)
 
     # Get variables from the metadata server
     try:
